@@ -7,6 +7,27 @@ public class Hangman {
     public static void main(String[] args) {
         System.out.println("HANGMAN");
 
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.print("Type \"play\" to play the game, \"exit\" to quit: > ");
+            String choice = scanner.nextLine();
+
+            if ("exit".equalsIgnoreCase(choice)) {
+                break;
+            } else if ("play".equalsIgnoreCase(choice)) {
+                playHangmanGame();
+            } else {
+                System.out.println("Please enter a valid choice.");
+            }
+        }
+
+        System.out.println("Goodbye!");
+    }
+
+    public static void playHangmanGame() {
+        System.out.println("----------");
+
         // Створіть список слів
         String[] words = {"python", "java", "javascript", "kotlin"};
 
@@ -27,7 +48,6 @@ public class Hangman {
         // Рядок для введених літер
         StringBuilder enteredLetters = new StringBuilder();
 
-        // Створіть об'єкт Scanner для введення користувача
         Scanner scanner = new Scanner(System.in);
 
         while (remainingAttempts > 0) {
@@ -63,8 +83,5 @@ public class Hangman {
         if (remainingAttempts == 0) {
             System.out.println("You lost!");
         }
-
-        // Закрийте Scanner
-        scanner.close();
     }
 }
