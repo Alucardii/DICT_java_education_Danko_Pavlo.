@@ -1,42 +1,43 @@
 import java.util.Scanner;
 
 public class CoffeeMachine {
-    private static int water = 400;
-    private static int milk = 540;
-    private static int coffeeBeans = 120;
-    private static int disposableCups = 9;
-    private static int money = 550;
+    private int water;
+    private int milk;
+    private int coffeeBeans;
+    private int disposableCups;
+    private int money;
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public CoffeeMachine(int water, int milk, int coffeeBeans, int disposableCups, int money) {
+        this.water = water;
+        this.milk = milk;
+        this.coffeeBeans = coffeeBeans;
+        this.disposableCups = disposableCups;
+        this.money = money;
+    }
 
-        while (true) {
-            System.out.println("Write action (buy, fill, take, remaining, exit):");
-            String action = scanner.next();
-
-            switch (action) {
-                case "buy":
-                    buyCoffee();
-                    break;
-                case "fill":
-                    fillMachine();
-                    break;
-                case "take":
-                    takeMoney();
-                    break;
-                case "remaining":
-                    printMachineState();
-                    break;
-                case "exit":
-                    return;
-                default:
-                    System.out.println("Invalid action");
-                    break;
-            }
+    public void processInput(String input) {
+        switch (input) {
+            case "buy":
+                buyCoffee();
+                break;
+            case "fill":
+                fillMachine();
+                break;
+            case "take":
+                takeMoney();
+                break;
+            case "remaining":
+                printMachineState();
+                break;
+            case "exit":
+                System.exit(0);
+            default:
+                System.out.println("Invalid action");
+                break;
         }
     }
 
-    private static void printMachineState() {
+    private void printMachineState() {
         System.out.println("The coffee machine has:");
         System.out.println(water + " of water");
         System.out.println(milk + " of milk");
@@ -45,7 +46,7 @@ public class CoffeeMachine {
         System.out.println(money + " of money");
     }
 
-    private static void buyCoffee() {
+    private void buyCoffee() {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -75,7 +76,7 @@ public class CoffeeMachine {
         }
     }
 
-    private static void makeCoffee(int waterNeeded, int milkNeeded, int coffeeBeansNeeded, int cost) {
+    private void makeCoffee(int waterNeeded, int milkNeeded, int coffeeBeansNeeded, int cost) {
         if (water >= waterNeeded && milk >= milkNeeded && coffeeBeans >= coffeeBeansNeeded && disposableCups >= 1) {
             System.out.println("I have enough resources, making coffee!");
             water -= waterNeeded;
@@ -88,7 +89,7 @@ public class CoffeeMachine {
         }
     }
 
-    private static void fillMachine() {
+    private void fillMachine() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Write how many ml of water you want to add:");
@@ -104,8 +105,19 @@ public class CoffeeMachine {
         disposableCups += scanner.nextInt();
     }
 
-    private static void takeMoney() {
+    private void takeMoney() {
         System.out.println("I gave you " + money);
         money = 0;
+    }
+
+    public static void main(String[] args) {
+        CoffeeMachine coffeeMachine = new CoffeeMachine(400, 540, 120, 9, 550);
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("Write action (buy, fill, take, remaining, exit):");
+            String action = scanner.next();
+            coffeeMachine.processInput(action);
+        }
     }
 }
