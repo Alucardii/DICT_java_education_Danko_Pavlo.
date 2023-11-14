@@ -10,27 +10,30 @@ public class CoffeeMachine {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        printMachineState();
+        while (true) {
+            System.out.println("Write action (buy, fill, take, remaining, exit):");
+            String action = scanner.next();
 
-        System.out.println("Write action (buy, fill, take):");
-        String action = scanner.next();
-
-        switch (action) {
-            case "buy":
-                buyCoffee();
-                break;
-            case "fill":
-                fillMachine();
-                break;
-            case "take":
-                takeMoney();
-                break;
-            default:
-                System.out.println("Invalid action");
-                break;
+            switch (action) {
+                case "buy":
+                    buyCoffee();
+                    break;
+                case "fill":
+                    fillMachine();
+                    break;
+                case "take":
+                    takeMoney();
+                    break;
+                case "remaining":
+                    printMachineState();
+                    break;
+                case "exit":
+                    return;
+                default:
+                    System.out.println("Invalid action");
+                    break;
+            }
         }
-
-        printMachineState();
     }
 
     private static void printMachineState() {
@@ -45,22 +48,30 @@ public class CoffeeMachine {
     private static void buyCoffee() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
-        int choice = scanner.nextInt();
+        while (true) {
+            System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back – to main menu:");
+            String choice = scanner.next();
 
-        switch (choice) {
-            case 1:
-                makeCoffee(250, 0, 16, 4);
+            if (choice.equals("back")) {
                 break;
-            case 2:
-                makeCoffee(350, 75, 20, 7);
-                break;
-            case 3:
-                makeCoffee(200, 100, 12, 6);
-                break;
-            default:
-                System.out.println("Invalid choice");
-                break;
+            }
+
+            int coffeeType = Integer.parseInt(choice);
+
+            switch (coffeeType) {
+                case 1:
+                    makeCoffee(250, 0, 16, 4);
+                    break;
+                case 2:
+                    makeCoffee(350, 75, 20, 7);
+                    break;
+                case 3:
+                    makeCoffee(200, 100, 12, 6);
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+                    break;
+            }
         }
     }
 
